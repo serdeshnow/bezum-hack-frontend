@@ -3,7 +3,7 @@ import { defineConfig, loadEnv } from 'vite';
 import react from '@vitejs/plugin-react-swc';
 import svgr from 'vite-plugin-svgr';
 import tsconfigPaths from 'vite-tsconfig-paths';
-import StylelintPlugin from 'vite-plugin-stylelint';
+// import StylelintPlugin from 'vite-plugin-stylelint';
 
 export default defineConfig(({ mode }) => {
   const envDir = path.resolve(__dirname, 'config/env');
@@ -14,16 +14,18 @@ export default defineConfig(({ mode }) => {
       react(),
       svgr(),
       tsconfigPaths(),
-      StylelintPlugin({
-        fix: true,
-        cache: false,
-      }),
+      // StylelintPlugin({
+      //   fix: true,
+      //   cache: false,
+      // }),
     ].filter(Boolean),
 
     resolve: {
       alias: {
         '@': path.resolve(__dirname, 'src'),
         '@styles': path.resolve(__dirname, 'src/shared/styles'),
+        '@widgets': path.resolve(__dirname, 'src/widgets'),
+        '@shared': path.resolve(__dirname, 'src/shared'),
       },
     },
 

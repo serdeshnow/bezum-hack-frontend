@@ -1,0 +1,33 @@
+.btn {
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	cursor: pointer;
+	transition: var(--transition-default-color);
+	margin: 0;
+	aspect-ratio: 1 / 1;
+	border: none;
+	border-radius: var(--border-circle);
+
+	&--primary {
+		background-color: transparent;
+		border: none;
+
+		&:active > svg > path {
+			fill: var(--light-500);
+		}
+	}
+
+	&--secondary {
+		background-color: var(--light-600);
+		padding: var(--spacing-sm);
+
+		& > svg > path {
+			fill: var(--color-input);
+		}
+
+		&:active {
+			background-color: var(--light-500);
+		}
+	}
+}

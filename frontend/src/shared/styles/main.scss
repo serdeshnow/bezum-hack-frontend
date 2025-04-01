@@ -7,10 +7,11 @@
 // @use 'pages/*';
 // @use 'themes/*';
 
-@use '@styles/abstracts/variables' as *;
+@use '@styles/abstracts/variables';
 @use '@styles/abstracts/functions';
 @use '@styles/abstracts/mixins';
 @use '@styles/abstracts/classNames';
+
 @use '@styles/base/index';
 @use '@styles/base/normalize';
 @use '@styles/base/breakpoints';

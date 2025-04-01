@@ -29,7 +29,9 @@
     "baseUrl": "./",
     "paths": {
       "@/*": ["src/*"],
-      "@styles/*": ["src/shared/styles/*"]
+      "@styles/*": ["src/shared/styles/*"],
+      "@widgets/*": ["src/widgets/*"],
+      "@shared/*": ["src/shared/*"],
     },
     "typeRoots": ["node_modules/@types", "types/"],
     "allowJs": false,

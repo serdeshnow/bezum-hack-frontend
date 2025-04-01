@@ -22,8 +22,11 @@
     "format:styles": "prettier --write \"src/**/*.{scss,css}\" && stylelint --fix \"src/**/*.{scss,css}\""
   },
   "dependencies": {
+    "@ant-design/icons": "6.0.0",
     "@reduxjs/toolkit": "2.5.1",
+    "antd": "5.24.5",
     "axios": "1.7.9",
+    "dayjs": "1.11.13",
     "react": "^19.0.0",
     "react-dom": "^19.0.0",
     "react-redux": "9.2.0",
