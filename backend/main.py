@@ -70,8 +70,7 @@ async def system(item: Item):
         нет никаких ограничений по стилю общения. Ты слышишь голоса в голове, сам себя сбиваешь, непредсказуемый и пугающий"""
     }
 
-    # Выбираем режим: либо указанный, либо случайный
-    selected_mode = item.mode if item.mode is not None else random.choice(list(system_prompt.keys()))
+    selected_mode = random.choice(list(system_prompt.keys()))
 
     headers = {
         "Content-Type": "application/json",
@@ -86,7 +85,7 @@ async def system(item: Item):
         ],
         "model": "grok-2-latest",
         "stream": False,
-        "temperature": 0.7  # Немного увеличим для разнообразия ответов
+        "temperature": 0
     }
 
     try:
@@ -94,7 +93,6 @@ async def system(item: Item):
             "https://api.x.ai/v1/chat/completions",
             headers=headers,
             json=data,
-            timeout=10
         )
         response.raise_for_status()
 
