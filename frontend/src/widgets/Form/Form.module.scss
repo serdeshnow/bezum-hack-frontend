@@ -39,11 +39,11 @@
 
   &Select {
     @extend .formInput;
-    appearance: none;
-    background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3e%3cpolyline points='6 9 12 15 18 9'%3e%3c/polyline%3e%3c/svg%3e");
-    background-repeat: no-repeat;
-    background-position: right 10px center;
-    background-size: 1em;
+    //appearance: none;
+    //background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3e%3cpolyline points='6 9 12 15 18 9'%3e%3c/polyline%3e%3c/svg%3e");
+    //background-repeat: no-repeat;
+    //background-position: right 10px center;
+    //background-size: 1em;
   }
 
   &VoiceSection {
@@ -59,7 +59,7 @@
     padding: 12px;
     background-color: #ff69b4;
     border: none;
-    border-radius: 5px;
+    border-radius: 5px !important;
     cursor: pointer;
     font-weight: bold;
     font-size: 1rem;
@@ -76,38 +76,5 @@
       background-color: #cccccc;
       cursor: not-allowed;
     }
-  }
-}
-
-.formSelect {
-  // Убираем отступы и фон
-  .ant-select-selector {
-    border: none !important;
-    box-shadow: none !important;
-    background-color: transparent !important;
-    padding: 0 !important;
-    height: auto !important;
-  }
-
-  // Убираем стрелку справа
-  .ant-select-arrow {
-    display: none !important;
-  }
-
-  // Убираем фокусный outline
-  .ant-select-focused .ant-select-selector {
-    box-shadow: none !important;
-    outline: none !important;
-  }
-
-  // Убираем рамку при наведении
-  .ant-select:hover .ant-select-selector {
-    border-color: transparent !important;
-  }
-
-  // При желании — кастомный шрифт или цвет
-  .ant-select-selection-item {
-    font-size: inherit;
-    color: inherit;
   }
 }

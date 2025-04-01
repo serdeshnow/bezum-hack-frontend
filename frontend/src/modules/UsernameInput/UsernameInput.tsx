@@ -7,7 +7,7 @@ interface UsernameInputProps {
   className?: string;
 }
 
-export const UsernameInput: React.FC<UsernameInputProps> = ({ value, setValue, className }) => {
+export const UsernameInput: React.FC<UsernameInputProps> = ({ value, setValue, className, ...props }) => {
   const handleBlur = () => {
     // Фильтруем имена, чтобы исключить текущее значение
     const filteredNames = names.filter(name => name !== value);
@@ -31,6 +31,7 @@ export const UsernameInput: React.FC<UsernameInputProps> = ({ value, setValue, c
       onChange={handleChange}
       onBlur={handleBlur}
       placeholder="Введите имя пользователя"
+      {...props}
     />
   );
 };

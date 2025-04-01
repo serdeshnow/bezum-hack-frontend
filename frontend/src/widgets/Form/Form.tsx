@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useRef, useState } from 'react';
 import s from './Form.module.scss';
 import { useNavigate } from 'react-router-dom';
 import { Button } from '@shared/ui/Button/Button';
@@ -8,28 +8,36 @@ import { BirthdaySelect } from '@/modules/BirthdaySelect/BirthdaySelect.tsx';
 export const RegistrationForm: React.FC = () => {
   const navigate = useNavigate();
 
-  const handleRegister = () => {
-    navigate('/home');
-  };
-
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
-  const [favoriteAlien, setFavoriteAlien] = useState('');
-  const [secretHandshake, setSecretHandshake] = useState('');
-  const [voiceInput, setVoiceInput] = useState('');
+  // const [favoriteAlien, setFavoriteAlien] = useState('');
+  // const [secretHandshake, setSecretHandshake] = useState('');
+  // const [voiceInput, setVoiceInput] = useState('');
   const [birthDate, setBirthDate] = useState('');
 
-  const randomHint = "Например, чо!";
-
-  const handleVoiceInput = () => {
-    alert("Голосовой ввод активирован! Произнесите вашу фразу...");
-    setVoiceInput("Пришельцы уже здесь!");
+  const inputRefs = {
+    birthday: useRef(null),
+    password: useRef(null),
+    alien: useRef(null),
+    handshake: useRef(null),
   };
+
+  // const handleKeyDown = (e: React.KeyboardEvent, nextRef: React.RefObject<HTMLInputElement | HTMLDivElement>) => {
+  //   if (e.key === 'Enter') {
+  //     e.preventDefault();
+  //     nextRef.current?.focus();
+  //   }
+  // };
+
+  // const handleVoiceInput = () => {
+  //   alert("Голосовой ввод активирован! Произнесите вашу фразу...");
+  //   setVoiceInput("Пришельцы уже здесь!");
+  // };
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    console.log({ username, password, favoriteAlien, secretHandshake, voiceInput, birthDate });
     alert("Регистрация прошла успешно!");
+    navigate('/home');
   };
 
   return (
@@ -47,60 +55,69 @@ export const RegistrationForm: React.FC = () => {
 
       <label className={s.formLabel}>
         Дата рождения:
-        <BirthdaySelect
-          className={s.formSelect}
-          value={birthDate}
-          onChange={setBirthDate}
-        />
+        {/*<div ref={inputRefs.birthday}>*/}
+          <BirthdaySelect
+            ref={inputRefs.birthday}
+            className={s.formSelect}
+            value={birthDate}
+            onChange={setBirthDate}
+          />
+        {/*</div>*/}
       </label>
 
       <label className={s.formLabel}>
         Пароль:
         <input
           type="text"
+          ref={inputRefs.password}
           value={password}
           onChange={(e) => setPassword(e.target.value)}
+          className={s.formInput}
           placeholder="Введите пароль"
-          className={s.formInput}
         />
       </label>
 
-      <label className={s.formLabel}>
-        чо:
-        <input
-          type="text"
-          value={favoriteAlien}
-          placeholder={randomHint}
-          onChange={(e) => setFavoriteAlien(e.target.value)}
-          className={s.formInput}
-        />
-      </label>
+      {/*<label className={s.formLabel}>*/}
+      {/*  чо:*/}
+      {/*  <input*/}
+      {/*    type="text"*/}
+      {/*    ref={inputRefs.alien}*/}
+      {/*    value={favoriteAlien}*/}
+      {/*    onChange={(e) => setFavoriteAlien(e.target.value)}*/}
+      {/*    className={s.formInput}*/}
+      {/*    placeholder="Например, чо!"*/}
+      {/*  />*/}
+      {/*</label>*/}
 
-      <label className={s.formLabel}>
-        Секретное рукопожатие (эмодзи):
-        <input
-          type="text"
-          value={secretHandshake}
-          onChange={(e) => setSecretHandshake(e.target.value)}
-          placeholder="Например, 🤝✨😎"
-          className={s.formInput}
-        />
-      </label>
+      {/*<label className={s.formLabel}>*/}
+      {/*  Секретное рукопожатие (эмодзи):*/}
+      {/*  <input*/}
+      {/*    type="text"*/}
+      {/*    ref={inputRefs.handshake}*/}
+      {/*    value={secretHandshake}*/}
+      {/*    onChange={(e) => setSecretHandshake(e.target.value)}*/}
+      {/*    className={s.formInput}*/}
+      {/*    onKeyDown={(e) => {*/}
+      {/*      if (e.key === 'Enter') handleSubmit(e);*/}
+      {/*    }}*/}
+      {/*    placeholder="Например, 🤝✨😎"*/}
+      {/*  />*/}
+      {/*</label>*/}
 
-      <div className={s.formVoiceSection}>
-        <button
-          type="button"
-          onClick={handleVoiceInput}
-          className={s.formButton}
-        >
-          Активировать голосовой ввод
-        </button>
-        {voiceInput && <p>Распознано: {voiceInput}</p>}
-      </div>
+      {/*<div className={s.formVoiceSection}>*/}
+      {/*  <button*/}
+      {/*    type="button"*/}
+      {/*    onClick={handleVoiceInput}*/}
+      {/*    className={s.formButton}*/}
+      {/*  >*/}
+      {/*    Активировать голосовой ввод*/}
+      {/*  </button>*/}
+      {/*  {voiceInput && <p>Распознано: {voiceInput}</p>}*/}
+      {/*</div>*/}
 
       <Button
         type="submit"
-        onClick={handleRegister}
+        onClick={handleSubmit}
         className={s.formButton}
       >
         Зарегистрироваться
