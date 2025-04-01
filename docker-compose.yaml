@@ -7,17 +7,17 @@ services:
       context: ./backend
     ports:
       - "8083:8083"
-    volumes:
-      - ./users_data:/app/data
+#    volumes:
+#      - ./users_data:/app/data
     networks:
       - dev
 
-#  frontend:
-#    build:
-#      context: ./frontend
-#    ports:
-#      - "81:81"
-#    depends_on:
-#      - backend
-#    networks:
-#      - dev
+  frontend:
+    build:
+      context: ./frontend
+    ports:
+      - "81:81"
+    depends_on:
+      - backend
+    networks:
+      - dev

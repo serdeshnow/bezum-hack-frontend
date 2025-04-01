@@ -1,6 +1,9 @@
 import { useEffect, useState } from 'react';
 import s from './Page.module.scss';
 import axios from 'axios';
+// import { RegistrationForm } from '@widgets/Form/Form.tsx';
+import { CrackOverlay } from '@/pages/home/ui/Crack/Crack.tsx';
+import { BotCrackOverlay } from '@/pages/home/ui/MessageShreck/MessageShreck.tsx';
 import Cookies from 'js-Cookie';
 import { useNavigate } from 'react-router-dom';
 
@@ -9,7 +12,7 @@ const SchizoText = ({ text }: { text: string }) => {
   const [style, setStyle] = useState<React.CSSProperties>({});
 
   const randomColor = () => '#' + Math.floor(Math.random() * 16777215).toString(16);
-  const randomFontSize = () => `${Math.floor(Math.random() * (36 - 16) + 16)}px`;
+  // const randomFontSize = () => `${Math.floor(Math.random() * (36 - 16) + 16)}px`;
   const randomRotation = () => `${Math.floor(Math.random() * 21 - 10)}deg`; // between -10 and +10
 
   const [madnessActive, setMadnessActive] = useState(false);
@@ -243,11 +246,25 @@ export const HomePage = () => {
         <button onClick={handleNewChat}>Новый чат</button>
       </div>
       <div className={s.messages_container}>
-        {messages.map((message, index) => (
-          <div key={index} className={message.fromBot ? s.bot_message : s.user_message}>
-            <SchizoText text={message.text} />
-          </div>
-        ))}
+        {messages.map((message, index) => {
+          if (message.fromBot) {
+            return (
+              <>
+                <div key={index} className={s.bot_message}>
+                  <SchizoText text={message.text} />
+                </div>
+                <BotCrackOverlay mode={'blue'} />
+              </>
+            );
+          }
+          return (
+            <>
+              <div key={index} className={s.user_message}>
+                <SchizoText text={message.text} />
+              </div>
+            </>
+          );
+        })}
         {loadingResponse && <div>Загрузка</div>}
       </div>
 
@@ -256,11 +273,13 @@ export const HomePage = () => {
         style={keyboardActive ? { bottom: '0' } : { bottom: '-100%' }}
       >
         {shuffledKeys.map((keyRow, rowIndex) => (
-          <div key={rowIndex} className={s.keyboard_row}>
-            {keyRow.map((key) => (
-              <SchizoButton key={key} label={key} onClick={() => handleKeyPress(key)} />
-            ))}
-          </div>
+          <>
+            <div key={rowIndex} className={s.keyboard_row}>
+              {keyRow.map((key) => (
+                <SchizoButton key={key} label={key} onClick={() => handleKeyPress(key)} />
+              ))}
+            </div>
+          </>
         ))}
       </div>
       <div
