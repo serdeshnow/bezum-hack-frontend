@@ -1,5 +1,5 @@
 // import ReactLogo from '@/shared/assets/svg/react.svg?react';
-import { RegistrationForm } from '@widgets/Form/Form.tsx'; // ensure you use ?react when
+// import { RegistrationForm } from '@widgets/Form/Form.tsx'; // ensure you use ?react when
 import { useEffect, useState } from 'react';
 import s from './Page.module.scss';
 // you want to render svg as component
