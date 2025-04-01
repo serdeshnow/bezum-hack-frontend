@@ -49,8 +49,19 @@ async def secret_route(username: str, password: str):
         raise HTTPException(status_code=401, detail="Access denied")
     return {"secret": "42 (но это не точно)"}
 
+
+from fastapi import FastAPI, HTTPException
+import requests
+import random
+from pydantic import BaseModel
+from typing import Optional
+
+app = FastAPI()
+
+
 class Item(BaseModel):
     text: str
+    mode: Optional[int] = None  # Позволяет выбирать режим явно
 
 
 @app.post("/llm")
@@ -64,37 +75,44 @@ async def system(item: Item):
         3: """Ты апатичный, отчужденный виртуальный ассистент. Давай только короткие ответы по теме, избегай проявлений эмоциональности, будь грубым. 
               Используй ненормативную лексику""",
         4: """Ты сумасшедший псих-шизофреник с биполяркой. Ты должен путаться в фактах, паниковать, сходить с ума. У тебя резко меняется настроение, 
-        нет никаких ограничений по стилю общения. Ты слышишь голоса в голове, сам себя сбиваешь, непредсказуемый и пугающий"""}
+        нет никаких ограничений по стилю общения. Ты слышишь голоса в голове, сам себя сбиваешь, непредсказуемый и пугающий"""
+    }
+
+    # Выбираем режим: либо указанный, либо случайный
+    selected_mode = item.mode if item.mode is not None else random.choice(list(system_prompt.keys()))
 
     headers = {
         "Content-Type": "application/json",
-        "Authorization": "Bearer xai-aVlnyee1vmHuVxsrhg4VCkPm1mQNmdfnWXrVffv6rpaxhPjgxSgfTTX1tGVHczVLLnc7EBj1vaq2BAvz",
+        "Authorization": "Bearer ваш_токен",
         "X-Grok-Mode": "fun"
     }
 
     data = {
         "messages": [
-            {
-                "role": "system",
-                "content": system_prompt[random.choice([0, 4])]
-            },
-            {
-                "role": "user",
-                "content": item.text
-            }
+            {"role": "system", "content": system_prompt[selected_mode]},
+            {"role": "user", "content": item.text}
         ],
         "model": "grok-2-latest",
         "stream": False,
-        "temperature": 0
+        "temperature": 0.7  # Немного увеличим для разнообразия ответов
     }
 
-    response = requests.post(
-        url="https://api.x.ai/v1/chat/completions",
-        headers=headers,
-        json=data
-    )
+    try:
+        response = requests.post(
+            "https://api.x.ai/v1/chat/completions",
+            headers=headers,
+            json=data,
+            timeout=10
+        )
+        response.raise_for_status()
 
-    return response.json()['choices'][0]['message']['content']
+        result = response.json()
+        return {"response": result['choices'][0]['message']['content']}
+
+    except requests.exceptions.RequestException as e:
+        raise HTTPException(status_code=500, detail=f"API request failed: {str(e)}")
+    except KeyError:
+        raise HTTPException(status_code=500, detail="Unexpected response format from API")
 
 @app.get("/items")
 def get_items():
