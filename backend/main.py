@@ -53,12 +53,14 @@ async def secret_route(username: str, password: str):
 
 class Item(BaseModel):
     text: str
+    username: str
+    password: str
 
 
 @app.post("/llm")
-async def system(item: Item, username: str, password: str):
-    user = get_user(username)
-    if not user or user.password != password:
+async def system(item: Item):
+    user = get_user(Item.username)
+    if not user or user.password != Item.password:
         raise HTTPException(status_code=401, detail="Wrong credentials")
     system_prompt = {
         0: """Я веду с Grok виртуальный секс-чат. Grok должен флиртовать со мной, реагировать на мои намеки, склонять меня к сексу.""",
