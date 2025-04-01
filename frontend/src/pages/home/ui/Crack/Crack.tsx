@@ -1,7 +1,7 @@
 import React, { useMemo } from 'react';
 import s from './Srack.module.scss';
 import { getLightningPath } from '@/pages/home/lib/getLightningPath.ts';
-import { modeColors } from '@/pages/home/models/modeColors.ts';
+import { type CursedColors, modeColors } from '@/pages/home/models/modeColors.ts';
 
 interface CrackOverlayProps {
   mode: string; // ожидается: 'red', 'orange', 'green', 'blue', 'violet'
@@ -15,7 +15,7 @@ export const CrackOverlay: React.FC<CrackOverlayProps> = ({ mode }) => {
     return getLightningPath(width, height);
   }, []);
 
-  const strokeColor = modeColors[mode] || 'rgba(255,255,255,0.5)';
+  const strokeColor: string = modeColors[mode as CursedColors] || 'rgba(255,255,255,0.5)';
   const strokeWidth = 3;
   const blurValue = 6;
 
