@@ -67,8 +67,8 @@ class Item(BaseModel):
 
 @app.post("/llm")
 async def system(item: Item):
-    user = get_user(Item.username)
-    if not user or user.password != Item.password:
+    user = get_user(item.username)
+    if not user or user.password != item.password:
         raise HTTPException(status_code=401, detail="Wrong credentials")
     system_prompt = {
         0: """Я веду с Grok виртуальный секс-чат. Grok должен флиртовать со мной, реагировать на мои намеки, склонять меня к сексу.""",
@@ -89,10 +89,10 @@ async def system(item: Item):
         "Authorization": "Bearer xai-aVlnyee1vmHuVxsrhg4VCkPm1mQNmdfnWXrVffv6rpaxhPjgxSgfTTX1tGVHczVLLnc7EBj1vaq2BAvz",
         "X-Grok-Mode": "fun"
     }
-
+    prompt = system_prompt[selected_mode]
     data = {
         "messages": [
-            {"role": "system", "content": system_prompt[selected_mode]},
+            {"role": "system", "content": prompt},
             {"role": "user", "content": item.text}
         ],
         "model": "grok-2-latest",
@@ -109,7 +109,7 @@ async def system(item: Item):
         response.raise_for_status()
 
         result = response.json()
-        return {"response": random_text(result['choices'][0]['message']['content'])}
+        return {"response": random_text(result['choices'][0]['message']['content']), "mode": selected_mode}
 
     except requests.exceptions.RequestException as e:
         raise HTTPException(status_code=500, detail=f"API request failed: {str(e)}")
@@ -154,12 +154,12 @@ app.add_middleware(
 
 def random_text(test_text):
     chance = random.randint(0, 100)
-    if chance < 45:
+    if chance < 50:
         rand1 = random.randint(0, 100)
         if rand1 < 50:
             randtext = random.choice(ascii_arts)
         else:
-            randtext = random.choice(["(*＞ω＜*)♡","HACKED", "@#%@&#*%#!()_$(%#@%@#%^T@@@@@", "NIGHTMARE", "VADIM SOLOVIEV ", "SALUT!", "23jsifdogjeri0t3j49tgnb0iermg34", "#@(%)@()#%*@)@#%*%*#(%(#(#@", "@%%%%%%%@@@@@@@@$$$$$"])*random.randint(10, 30)
+            randtext = random.choice(["(*＞ω＜*)♡","HACKED", "@#%@&#*%#!()_$(%#@%@#%^T@@@@@", "NIGHTMARE", "SALUT!", "23jsifdogjeri0t3j49tgnb0iermg34", "#@(%)@()#%*@)@#%*%*#(%(#(#@", "@%%%%%%%@@@@@@@@$$$$$"])*random.randint(10, 30)
         rand2 = random.randint(0, len(test_text) - 1)
         test_text = test_text[:rand2] + randtext + test_text[rand2:]
     return test_text

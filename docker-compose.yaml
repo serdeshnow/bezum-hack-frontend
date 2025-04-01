@@ -12,12 +12,12 @@ services:
     networks:
       - dev
 
-  frontend:
-    build:
-      context: ./frontend
-    ports:
-      - "81:81"
-    depends_on:
-      - backend
-    networks:
-      - dev
+#  frontend:
+#    build:
+#      context: ./frontend
+#    ports:
+#      - "81:81"
+#    depends_on:
+#      - backend
+#    networks:
+#      - dev
