@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import s from './LoginForm.module.scss';
+import s from '../Form/Form.module.scss';
 import { useNavigate } from 'react-router-dom';
 import { Button } from '@shared/ui/Button/Button';
 import { UsernameInput } from '@/modules/UsernameInput/UsernameInput';

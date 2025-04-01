@@ -34,12 +34,13 @@
       align-self: flex-start;
       padding: 20px;
       background-color: #f8f8f8;
+      z-index: 100;
     }
   }
 
   .keyboard_container {
     position: fixed;
-    bottom: 0px;
+    bottom: 0;
     display: flex;
     flex-direction: column;
     // justify-content: space-evenly;
@@ -62,6 +63,7 @@
     }
   }
 
+
   .text_input_container {
     position: fixed;
     left: 15vw;
@@ -82,4 +84,5 @@
       color: black;
     }
   }
+
 }
