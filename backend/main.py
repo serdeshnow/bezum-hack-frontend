@@ -8,7 +8,7 @@ from typing import Optional
 
 app = FastAPI()
 
-users_file = "users.txt"
+users_file = "users.wtf"
 
 class User:
     def __init__(self, username: str, password: str):
@@ -16,7 +16,7 @@ class User:
         self.password = password
 
 def save_user(user: User):
-    with open("users.txt", "a") as file:
+    with open(users_file, "a") as file:
         file.write(f"{user.username}:{user.password}\n")
 
 def get_user(username: str) -> User | None:
