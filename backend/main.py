@@ -31,7 +31,7 @@ async def register(username: str, password: str):
     if get_user(username):
         raise HTTPException(status_code=400, detail="Username already exists")
     save_user(User(username=username, password=password))
-    return {"nessage": "User registered successfully"}
+    return {"message": "User registered successfully"}
 
 @app.post("/login")
 async def login(username: str, password: str):
@@ -73,7 +73,9 @@ def get_items():
 app.add_middleware(
     CORSMiddleware,
     allow_origins=[
-#         "http://localhost:5173",
+        "http://localhost:8080",
+        "http://localhost:5173",
+        "https://bezum.salut.ltd",
 #         "http://212.193.26.64",
 #         "https://site-test-deploy1.ru",
     ],
