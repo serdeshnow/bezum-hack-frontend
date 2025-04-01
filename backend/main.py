@@ -53,7 +53,6 @@ async def secret_route(username: str, password: str):
 
 class Item(BaseModel):
     text: str
-    mode: Optional[int] = None  # Позволяет выбирать режим явно
 
 
 @app.post("/llm")
