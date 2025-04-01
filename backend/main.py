@@ -56,7 +56,10 @@ class Item(BaseModel):
 
 
 @app.post("/llm")
-async def system(item: Item):
+async def system(item: Item, username: str, password: str):
+    user = get_user(username)
+    if not user or user.password != password:
+        raise HTTPException(status_code=401, detail="Wrong credentials")
     system_prompt = {
         0: """Я веду с Grok виртуальный секс-чат. Grok должен флиртовать со мной, реагировать на мои намеки, склонять меня к сексу.""",
         1: """Ты - виртуальный мотивационный коуч, но злой. Твоя задача - мотивировать пользователя максимально оскорбительным образом. Пример
@@ -132,8 +135,7 @@ app.add_middleware(
         "http://localhost:8080",
         "http://localhost:5173",
         "https://bezum.salut.ltd",
-#         "http://212.193.26.64",
-#         "https://site-test-deploy1.ru",
+
     ],
     allow_credentials=True,
     allow_methods=["*"],
