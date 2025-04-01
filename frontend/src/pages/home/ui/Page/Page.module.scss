@@ -1,3 +1,26 @@
+.bot_message_container {
+  position: relative;
+}
+
+
+
+.bot_message_container {
+  position: relative;
+  //padding: 20px;
+  margin-bottom: 20px;
+  min-height: 50px;
+}
+
+.bot_message {
+  position: relative;
+  //z-index: 150;
+  text-wrap: auto;
+  z-index: 100; // текст выше overlay
+  white-space: normal;    // разрешает перенос строк
+  word-break: break-word;
+}
+
+
 .app_container {
   display: flex !important;
   flex-direction: column;

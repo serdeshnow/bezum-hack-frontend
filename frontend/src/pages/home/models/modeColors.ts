@@ -1,5 +1,6 @@
+export type CursedColors = 'red' | 'orange' | 'green' | 'blue' | 'violet'
 
-export const modeColors: Record<string, string> = {
+export const modeColors: Record<CursedColors, string> = {
   red: 'rgba(255, 0, 0, 0.8)',
   orange: 'rgba(255, 165, 0, 0.8)',
   green: 'rgba(0, 255, 0, 0.8)',

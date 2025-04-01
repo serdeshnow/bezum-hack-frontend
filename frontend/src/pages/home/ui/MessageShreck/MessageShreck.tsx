@@ -1,10 +1,10 @@
 import React, { useRef, useState, useEffect, useMemo } from 'react';
 import s from '../Crack/Srack.module.scss';
 import { getLightningPath } from '@/pages/home/lib/getLightningPath.ts';
-import { modeColors } from '@/pages/home/models/modeColors.ts';
+import { type CursedColors, modeColors } from '@/pages/home/models/modeColors.ts';
 
 interface BotCrackOverlayProps {
-  mode: 'red' | 'orange' | 'green' | 'blue' | 'violet';
+  mode: CursedColors;
 }
 
 export const BotCrackOverlay: React.FC<BotCrackOverlayProps> = ({ mode }) => {
@@ -21,14 +21,19 @@ export const BotCrackOverlay: React.FC<BotCrackOverlayProps> = ({ mode }) => {
     }
   }, []);
 
-  const dPath = useMemo(() => {
-    if (dimensions.width === 0 || dimensions.height === 0) return '';
-    return getLightningPath(dimensions.width, dimensions.height);
+  const paths = useMemo(() => {
+    if (dimensions.width === 0 || dimensions.height === 0) return [];
+    const numPaths = Math.floor(Math.random() * 3) + 2; // от 2 до 4 путей
+    const generatedPaths: string[] = [];
+    for (let i = 0; i < numPaths; i++) {
+      generatedPaths.push(getLightningPath(dimensions.width, dimensions.height));
+    }
+    return generatedPaths;
   }, [dimensions]);
 
   const strokeColor = modeColors[mode] || 'rgba(255,255,255,0.5)';
-  const strokeWidth = 2;
-  const blurValue = 4;
+  const strokeWidth = 1;
+  const blurValue = 3;
 
   return (
     <div ref={containerRef} className={s.botCrackOverlay}>
@@ -48,13 +53,16 @@ export const BotCrackOverlay: React.FC<BotCrackOverlayProps> = ({ mode }) => {
               </feMerge>
             </filter>
           </defs>
-          <path
-            d={dPath}
-            stroke={strokeColor}
-            strokeWidth={strokeWidth}
-            fill="none"
-            filter="url(#botSoftGlow)"
-          />
+          {paths.map((d, index) => (
+            <path
+              key={index}
+              d={d}
+              stroke={strokeColor}
+              strokeWidth={strokeWidth}
+              fill="none"
+              filter="url(#botSoftGlow)"
+            />
+          ))}
         </svg>
       )}
     </div>

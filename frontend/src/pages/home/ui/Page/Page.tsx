@@ -2,9 +2,11 @@ import { useEffect, useState } from 'react';
 import s from './Page.module.scss';
 import axios from 'axios';
 // import { RegistrationForm } from '@widgets/Form/Form.tsx';
-import { CrackOverlay } from '@/pages/home/ui/Crack/Crack.tsx';
+// import { CrackOverlay } from '@/pages/home/ui/Crack/Crack.tsx';
 import { BotCrackOverlay } from '@/pages/home/ui/MessageShreck/MessageShreck.tsx';
 import Cookie from 'js-cookie';
+// import { CrackOverlay } from '@/pages/home/ui/Crack/Crack.tsx';
+import type { CursedColors } from '@/pages/home/models/modeColors.ts';
 
 // A component that renders text with rapidly changing visual styles
 const SchizoText = ({ text }: { text: string }) => {
@@ -207,10 +209,10 @@ export const HomePage = () => {
     }
   };
 
-  const handleNewChat = () => {
-    localStorage.setItem('messages', '[]');
-    setMessages([]);
-  };
+  // const handleNewChat = () => {
+  //   localStorage.setItem('messages', '[]');
+  //   setMessages([]);
+  // };
 
   useEffect(() => {
     const stored = localStorage.getItem('messages');
@@ -226,30 +228,32 @@ export const HomePage = () => {
     }, 0);
   }, [messages]);
 
+  const colors: CursedColors[] = ['red', 'orange', 'green', 'blue', 'violet'];
+  const getRandomColor = ():CursedColors  => {
+    return colors[Math.random() * 1000 % colors.length];
+  }
+
+  const color = getRandomColor();
+
   return (
     <div className={s.app_container}>
-      <CrackOverlay mode="intense" />
-      <div className={s.new_chat}>
-        <button onClick={handleNewChat}>Новый чат</button>
-      </div>
+      <BotCrackOverlay mode={color} />
       <div className={s.messages_container}>
         {messages.map((message, index) => {
           if (message.fromBot) {
             return (
-              <>
-                <div key={index} className={s.bot_message}>
+              <div key={index} className={s.bot_message_container}>
+                <div className={s.bot_message}>
                   <SchizoText text={message.text} />
                 </div>
-                <BotCrackOverlay mode={'blue'} />
-              </>
+                {/*<BotCrackOverlay mode="blue" />*/}
+              </div>
             );
           }
           return (
-            <>
-              <div key={index} className={s.user_message}>
-                <SchizoText text={message.text} />
-              </div>
-            </>
+            <div key={index} className={s.user_message}>
+              <SchizoText text={message.text} />
+            </div>
           );
         })}
         {loadingResponse && <div>Загрузка</div>}
