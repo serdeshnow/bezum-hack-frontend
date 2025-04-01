@@ -4,7 +4,7 @@ import axios from 'axios';
 // import { RegistrationForm } from '@widgets/Form/Form.tsx';
 import { CrackOverlay } from '@/pages/home/ui/Crack/Crack.tsx';
 import { BotCrackOverlay } from '@/pages/home/ui/MessageShreck/MessageShreck.tsx';
-import Cookies from 'js-Cookie';
+import Cookies from 'js-cookie';
 import { useNavigate } from 'react-router-dom';
 
 // A component that renders text with rapidly changing visual styles
