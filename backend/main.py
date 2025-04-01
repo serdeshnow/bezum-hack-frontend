@@ -154,7 +154,7 @@ app.add_middleware(
 
 def random_text(test_text):
     chance = random.randint(0, 100)
-    if chance < 45:
+    if chance < 60:
         rand1 = random.randint(0, 100)
         if rand1 < 50:
             randtext = random.choice(ascii_arts)
