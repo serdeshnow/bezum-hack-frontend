@@ -32,7 +32,7 @@ export const RegistrationForm: React.FC = () => {
     const maxDate = dayjs('31.03.2007', 'DD.MM.YYYY');
 
     if (selectedDate.isBefore(minDate)) {
-      setError('ВЫБРАНА ЛОЖНАЯ ДАТА РОЖДЕНИЯ');
+      setError('ВЫБРАНА ЛОЖНАЯ ДАТА КОНФИГУРАЦИИ');
       return;
     }
 
@@ -42,7 +42,7 @@ export const RegistrationForm: React.FC = () => {
     }
 
     try {
-      Cookies .set('username', username);
+      Cookies.set('username', username);
       Cookies.set('password', password);
       Cookies.set('birthDate', birthDate);
 
@@ -51,17 +51,17 @@ export const RegistrationForm: React.FC = () => {
       });
       console.log('Registration response:', response.data);
 
-      alert("РЕГИСТРАЦИЯ УСПЕШНА!");
+      alert('ИНТЕГРАЦИЯ УСПЕШНА!');
       navigate('/home');
     } catch (err) {
-      console.error('Ошибка регистрации:', err);
+      console.error('Ошибка интеграции:', err);
       setError('ОШИБКА ИНТЕГРАЦИИ. СВЯЗЬ ПРЕРВАНА.');
     }
   };
 
   return (
     <form onSubmit={handleSubmit} className={s.form}>
-      <h1 className={s.formTitle}>Регистрация</h1>
+      <h1 className={s.formTitle}>Интеграция</h1>
 
       {error && <div className={s.errorMessage}>{error}</div>}
 

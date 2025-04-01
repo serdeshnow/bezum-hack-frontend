@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import s from './Page.module.scss';
 import axios from 'axios';
-import { RegistrationForm } from '@widgets/Form/Form.tsx';
+import Cookie from 'js-cookie';
 
 // A component that renders text with rapidly changing visual styles
 const SchizoText = ({ text }: { text: string }) => {
@@ -11,17 +11,28 @@ const SchizoText = ({ text }: { text: string }) => {
   const randomFontSize = () => `${Math.floor(Math.random() * (36 - 16) + 16)}px`;
   const randomRotation = () => `${Math.floor(Math.random() * 21 - 10)}deg`; // between -10 and +10
 
+  const [madnessActive, setMadnessActive] = useState(false);
+
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setMadnessActive(true);
+    }, 20000);
+    return () => clearTimeout(timer);
+  }, []);
+
   useEffect(() => {
     const interval = setInterval(() => {
-      setStyle({
-        color: randomColor(),
-        fontSize: randomFontSize(),
-        transform: `rotate(${randomRotation()})`,
-        transition: 'all 0.3s ease',
-      });
+      if (madnessActive) {
+        setStyle({
+          color: randomColor(),
+          // fontSize: randomFontSize(),
+          transform: `rotate(${randomRotation()})`,
+          transition: 'all 0.3s ease',
+        });
+      }
     }, 2000);
     return () => clearInterval(interval);
-  }, []);
+  }, [madnessActive]);
 
   return <span style={style}>{text}</span>;
 };
@@ -51,20 +62,31 @@ const SchizoButton = ({ label, onClick }: { label: string; onClick: () => void }
     return brightness > 128 ? '#000000' : '#FFFFFF';
   };
 
+  const [madnessActive, setMadnessActive] = useState(false);
+
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setMadnessActive(true);
+    }, 20000);
+    return () => clearTimeout(timer);
+  }, []);
+
   useEffect(() => {
     const interval = setInterval(() => {
-      const background = randomBackgroundColor();
-      setStyle({
-        backgroundColor: background,
-        color: getContrastingColor(background),
-        fontSize: randomFontSize(),
-        transform: `rotate(${randomRotation()})`,
-        transition: 'all 0.3s ease',
-        width: '100%',
-      });
+      if (madnessActive) {
+        const background = randomBackgroundColor();
+        setStyle({
+          backgroundColor: background,
+          color: getContrastingColor(background),
+          fontSize: randomFontSize(),
+          transform: `rotate(${randomRotation()})`,
+          transition: 'all 0.3s ease',
+          width: '100%',
+        });
+      }
     }, 1000);
     return () => clearInterval(interval);
-  }, []);
+  }, [madnessActive]);
 
   return (
     <button className={s.keyboard_key} style={style} onClick={onClick}>
@@ -142,10 +164,25 @@ export const HomePage = () => {
     setInput('');
     setMessages([...messages, { text: text, fromUser: true }]);
     // Simulated bot response for demo purposes
-    setTimeout(() => {
-      setMessages((prev) => [...prev, { text: 'Это ответ бота!', fromBot: true }]);
-      setLoadingResponse(false);
-    }, 1000);
+    axios
+      .post('http://138.124.55.87:8083/llm', {
+        text: text,
+        username: Cookie.get('username'),
+        password: Cookie.get('password'),
+      })
+      .then((res) => {
+        setMessages((prev) => [
+          ...prev,
+          { text: res.data.response, mode: res.data.mode, fromBot: true },
+        ]);
+      })
+      .finally(() => {
+        setLoadingResponse(false);
+      });
+    // setTimeout(() => {
+    //   setMessages((prev) => [...prev, { text: 'Это ответ бота!', fromBot: true }]);
+    //   setLoadingResponse(false);
+    // }, 1000);
   };
 
   useEffect(() => {

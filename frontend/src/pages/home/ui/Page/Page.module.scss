@@ -23,20 +23,19 @@
     flex-direction: column;
     gap: 20px;
     width: 100%;
+    padding-bottom: 400px;
     .user_message {
       align-self: flex-end;
       padding: 20px;
       background-color: #f8f8f8;
     }
-  
+
     .bot_message {
       align-self: flex-start;
       padding: 20px;
       background-color: #f8f8f8;
     }
   }
-
-  
 
   .keyboard_container {
     position: fixed;
@@ -54,7 +53,7 @@
       justify-content: center;
       width: 100vw;
       height: 5vh;
-  
+
       .keyboard_key {
         width: 100%;
         background-color: white;
@@ -63,26 +62,24 @@
     }
   }
 
-  
   .text_input_container {
     position: fixed;
-      left: 15vw;
-      right: 0;
-      width: 70vw;
-      display: flex;
-      flex-direction: row;
-      gap: 20px;
+    left: 15vw;
+    right: 0;
+    width: 70vw;
+    display: flex;
+    flex-direction: row;
+    gap: 20px;
 
-      button {
-        padding: 10px;
-      }
+    button {
+      padding: 10px;
+    }
 
     .text_input {
       width: 100%;
       padding: 10px;
       background-color: #f8f8f8;
-      color: black;    
-    }  
+      color: black;
+    }
   }
-  
 }
