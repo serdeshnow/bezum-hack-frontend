@@ -59,6 +59,10 @@ export const RegistrationForm: React.FC = () => {
     }
   };
 
+  const handleLogin = () => {
+    navigate('/login');
+  };
+
   return (
     <form onSubmit={handleSubmit} className={s.form}>
       <h1 className={s.formTitle}>Интеграция</h1>
@@ -96,6 +100,12 @@ export const RegistrationForm: React.FC = () => {
       <Button type="submit" onClick={handleSubmit} className={s.formButton}>
         Интегрироваться
       </Button>
+      <button
+        onClick={handleLogin}
+        style={{ marginLeft: 'auto', marginRight: 'auto', marginTop: '20px' }}
+      >
+        Я уже знаю путь
+      </button>
     </form>
   );
 };

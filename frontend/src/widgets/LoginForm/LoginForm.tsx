@@ -28,12 +28,16 @@ export const LoginForm: React.FC = () => {
       });
       console.log('Login response:', response.data);
 
-      alert("ИДЕНТИФИКАЦИЯ УСПЕШНА!");
+      alert('ИДЕНТИФИКАЦИЯ УСПЕШНА!');
       navigate('/home');
     } catch (err) {
       console.error('Ошибка входа:', err);
       setError('ОШИБКА ВХОДА. СВЯЗЬ ПРЕРВАНА.');
     }
+  };
+
+  const handleBack = () => {
+    window.history.go(-1);
   };
 
   return (
@@ -64,6 +68,13 @@ export const LoginForm: React.FC = () => {
       <Button type="submit" onClick={handleSubmit} className={s.formButton}>
         Интегрироваться
       </Button>
+
+      <button
+        onClick={handleBack}
+        style={{ marginLeft: 'auto', marginRight: 'auto', marginTop: '20px' }}
+      >
+        Я забыл путь :(
+      </button>
     </form>
   );
 };

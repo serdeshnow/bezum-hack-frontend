@@ -1,7 +1,8 @@
 import { useEffect, useState } from 'react';
 import s from './Page.module.scss';
 import axios from 'axios';
-import Cookie from 'js-cookie';
+import Cookies from 'js-Cookie';
+import { useNavigate } from 'react-router-dom';
 
 // A component that renders text with rapidly changing visual styles
 const SchizoText = ({ text }: { text: string }) => {
@@ -146,6 +147,8 @@ export const HomePage = () => {
     return copy;
   };
 
+  const navigate = useNavigate();
+
   const [shuffledKeys, setShuffledKeys] = useState<string[][]>([]);
 
   const handleShuffle = () => {
@@ -167,8 +170,8 @@ export const HomePage = () => {
     axios
       .post('http://138.124.55.87:8083/llm', {
         text: text,
-        username: Cookie.get('username'),
-        password: Cookie.get('password'),
+        username: Cookies.get('username'),
+        password: Cookies.get('password'),
       })
       .then((res) => {
         setMessages((prev) => [
@@ -209,6 +212,14 @@ export const HomePage = () => {
     setMessages([]);
   };
 
+  const handleLogout = () => {
+    Cookies.remove('username');
+    Cookies.remove('password');
+    Cookies.remove('birthDate');
+    Cookies.remove('username');
+    navigate('/');
+  };
+
   useEffect(() => {
     const stored = localStorage.getItem('messages');
     console.log(stored);
@@ -225,6 +236,9 @@ export const HomePage = () => {
 
   return (
     <div className={s.app_container}>
+      <div className={s.forget}>
+        <button onClick={handleLogout}>Выйти из матрицы</button>
+      </div>
       <div className={s.new_chat}>
         <button onClick={handleNewChat}>Новый чат</button>
       </div>

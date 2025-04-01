@@ -9,6 +9,15 @@
   padding-right: 20vw;
   padding-top: 100px;
 
+  .forget {
+    position: absolute;
+    top: 20px;
+    left: 20px;
+    button {
+      padding: 10px;
+    }
+  }
+
   .new_chat {
     position: absolute;
     top: 20px;
