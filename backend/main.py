@@ -164,7 +164,5 @@ def random_text(test_text):
         test_text = test_text[:rand2] + randtext + test_text[rand2:]
     return test_text
 
-print(random_text(test_text))
-
 if __name__ == "__main__":
     uvicorn.run(app, host="0.0.0.0", port=8083)
