@@ -83,7 +83,7 @@ async def system(item: Item):
 
     headers = {
         "Content-Type": "application/json",
-        "Authorization": "Bearer ваш_токен",
+        "Authorization": "Bearer xai-aVlnyee1vmHuVxsrhg4VCkPm1mQNmdfnWXrVffv6rpaxhPjgxSgfTTX1tGVHczVLLnc7EBj1vaq2BAvz",
         "X-Grok-Mode": "fun"
     }
 
