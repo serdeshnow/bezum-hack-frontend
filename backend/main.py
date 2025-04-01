@@ -159,7 +159,7 @@ def random_text(test_text):
         if rand1 < 50:
             randtext = random.choice(ascii_arts)
         else:
-            randtext = random.choice(["(*＞ω＜*)♡","HACKED", "@#%@&#*%#!()_$(%#@%@#%^T@@@@@", "NIGHTMARE", "VADIM SOLOVIEV ", "SALUT!", "23jsifdogjeri0t3j49tgnb0iermg34", "#@(%)@()#%*@)@#%*%*#(%(#(#@", "@%%%%%%%@@@@@@@@$$$$$"])*random.randint(10, 30)
+            randtext = random.choice(["(*＞ω＜*)♡","HACKED", "@#%@&#*%#!()_$(%#@%@#%^T@@@@@", "NIGHTMARE", "SALUT!", "23jsifdogjeri0t3j49tgnb0iermg34", "#@(%)@()#%*@)@#%*%*#(%(#(#@", "@%%%%%%%@@@@@@@@$$$$$"])*random.randint(10, 30)
         rand2 = random.randint(0, len(test_text) - 1)
         test_text = test_text[:rand2] + randtext + test_text[rand2:]
     return test_text
