@@ -6,16 +6,19 @@ interface UsernameInputProps {
   value: string;
   setValue: (value: string) => void;
   className?: string;
+  isRandom: boolean;
 }
 
-export const UsernameInput: React.FC<UsernameInputProps> = ({ value, setValue, className, ...props }) => {
+export const UsernameInput: React.FC<UsernameInputProps> = ({ value, setValue, className, isRandom, ...props }) => {
   const handleBlur = () => {
-    const filteredNames = names.filter(name => name !== value);
-    if (filteredNames.length === 0) {
-      return;
+    if (isRandom) {
+      const filteredNames = names.filter(name => name !== value);
+      if (filteredNames.length === 0) {
+        return;
+      }
+      const randomName = filteredNames[Math.floor(Math.random() * filteredNames.length)];
+      setValue(randomName);
     }
-    const randomName = filteredNames[Math.floor(Math.random() * filteredNames.length)];
-    setValue(randomName);
   };
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
