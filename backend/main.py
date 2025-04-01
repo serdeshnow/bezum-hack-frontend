@@ -109,7 +109,7 @@ async def system(item: Item):
         response.raise_for_status()
 
         result = response.json()
-        return {"response": result['choices'][0]['message']['content']}
+        return {"response": random_text(result['choices'][0]['message']['content'])}
 
     except requests.exceptions.RequestException as e:
         raise HTTPException(status_code=500, detail=f"API request failed: {str(e)}")
