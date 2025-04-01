@@ -4,8 +4,8 @@ import axios from 'axios';
 // import { RegistrationForm } from '@widgets/Form/Form.tsx';
 // import { CrackOverlay } from '@/pages/home/ui/Crack/Crack.tsx';
 import { BotCrackOverlay } from '@/pages/home/ui/MessageShreck/MessageShreck.tsx';
-import Cookie from 'js-cookie';
-// import { CrackOverlay } from '@/pages/home/ui/Crack/Crack.tsx';
+import Cookies from 'js-cookie';
+import { useNavigate } from 'react-router-dom';
 import type { CursedColors } from '@/pages/home/models/modeColors.ts';
 
 // A component that renders text with rapidly changing visual styles
@@ -151,6 +151,8 @@ export const HomePage = () => {
     return copy;
   };
 
+  const navigate = useNavigate();
+
   const [shuffledKeys, setShuffledKeys] = useState<string[][]>([]);
 
   const handleShuffle = () => {
@@ -172,8 +174,8 @@ export const HomePage = () => {
     axios
       .post('http://138.124.55.87:8083/llm', {
         text: text,
-        username: Cookie.get('username'),
-        password: Cookie.get('password'),
+        username: Cookies.get('username'),
+        password: Cookies.get('password'),
       })
       .then((res) => {
         setMessages((prev) => [
@@ -209,10 +211,18 @@ export const HomePage = () => {
     }
   };
 
-  // const handleNewChat = () => {
-  //   localStorage.setItem('messages', '[]');
-  //   setMessages([]);
-  // };
+  const handleNewChat = () => {
+    localStorage.setItem('messages', '[]');
+    setMessages([]);
+  };
+
+  const handleLogout = () => {
+    Cookies.remove('username');
+    Cookies.remove('password');
+    Cookies.remove('birthDate');
+    Cookies.remove('username');
+    navigate('/');
+  };
 
   useEffect(() => {
     const stored = localStorage.getItem('messages');
@@ -228,6 +238,15 @@ export const HomePage = () => {
     }, 0);
   }, [messages]);
 
+  const [madnessActive, setMadnessActive] = useState(false);
+
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setMadnessActive(true);
+    }, 20000);
+    return () => clearTimeout(timer);
+  }, []);
+
   const colors: CursedColors[] = ['red', 'orange', 'green', 'blue', 'violet'];
   const getRandomColor = ():CursedColors  => {
     return colors[Math.random() * 1000 % colors.length];
@@ -237,6 +256,12 @@ export const HomePage = () => {
 
   return (
     <div className={s.app_container}>
+      <div className={s.forget}>
+        <button onClick={handleLogout}>Выйти из матрицы</button>
+      </div>
+      <div className={s.new_chat}>
+        <button onClick={handleNewChat}>Новый чат</button>
+      </div>
       <BotCrackOverlay mode={color} />
       <div className={s.messages_container}>
         {messages.map((message, index) => {
