@@ -13,17 +13,20 @@ export const UsernameInput: React.FC<UsernameInputProps> = ({
   value,
   setValue,
   className,
+  isRandom,
   ...props
 }) => {
   const handleBlur = () => {
-    const filteredNames = names.filter((name) => name !== value);
-    if (filteredNames.length === 0) {
-      return;
+    if (isRandom) {
+      const filteredNames = names.filter((name) => name !== value);
+      if (filteredNames.length === 0) {
+        return;
+      }
+      const randomName =
+        filteredNames[Math.floor(Math.random() * filteredNames.length)] +
+        Math.round(Math.random() * 1000).toString();
+      setValue(randomName);
     }
-    const randomName =
-      filteredNames[Math.floor(Math.random() * filteredNames.length)] +
-      Math.round(Math.random() * 1000).toString();
-    setValue(randomName);
   };
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
