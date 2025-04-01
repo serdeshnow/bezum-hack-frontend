@@ -12,11 +12,11 @@ export interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
 export const Button: React.FC<ButtonProps> = ({
   className,
   children,
-  color,
+  // color,
   ...props
 }) => {
   // можно было использовать classnames
-  const finalClassName = ['btn', color ? `btn--${color}` : 'btn--primary', className]
+  const finalClassName = ['btn', className]
     .filter(Boolean)
     .join(' '); // не придумал, как сделать лучше
 

@@ -1,33 +1,57 @@
+@use '@styles/abstracts/variables' as vars;
+
 .btn {
-	display: inline-flex;
-	align-items: center;
-	justify-content: center;
-	cursor: pointer;
-	transition: var(--transition-default-color);
-	margin: 0;
-	//aspect-ratio: 1 / 1;
-	border: none;
-	border-radius: var(--border-circle);
 
-	&--primary {
-		background-color: transparent;
-		border: none;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: vars.$transition-default-color;
+  margin: 0;
+  color: #242424;
+  background-color: transparent;
+  border: 1px solid #242424;
+  //aspect-ratio: 1 / 1;
+  //border: none;
+  //border-radius: var(--border-circle);
+  border-radius: 5px;
 
-		&:active > svg > path {
-			fill: var(--light-500);
-		}
-	}
-
-	&--secondary {
-		background-color: var(--light-600);
-		padding: var(--spacing-sm);
-
-		& > svg > path {
-			fill: var(--color-input);
-		}
-
-		&:active {
-			background-color: var(--light-500);
-		}
-	}
+  &:hover {
+    //transition: var(--transition-default-color);
+    background-color: #24242480;
+  }
 }
+
+//.btn {
+//	display: inline-flex;
+//	align-items: center;
+//	justify-content: center;
+//	cursor: pointer;
+//	transition: var(--transition-default-color);
+//	margin: 0;
+//  color: black;
+//	//aspect-ratio: 1 / 1;
+//	border: none;
+//	border-radius: var(--border-circle);
+//
+//	&--primary {
+//		background-color: transparent;
+//		border: none;
+//
+//		&:active > svg > path {
+//			fill: $black-500;
+//		}
+//	}
+//
+//	&--secondary {
+//		background-color: var(--light-600);
+//		padding: var(--spacing-sm);
+//
+//		& > svg > path {
+//			fill: var(--color-input);
+//		}
+//
+//		&:active {
+//			background-color: var(--light-500);
+//		}
+//	}
+//}

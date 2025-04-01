@@ -1,5 +1,6 @@
 import React from 'react';
 import names from '@/shared/data/names.json';
+import { Input } from 'antd';
 
 interface UsernameInputProps {
   value: string;
@@ -9,12 +10,10 @@ interface UsernameInputProps {
 
 export const UsernameInput: React.FC<UsernameInputProps> = ({ value, setValue, className, ...props }) => {
   const handleBlur = () => {
-    // Фильтруем имена, чтобы исключить текущее значение
     const filteredNames = names.filter(name => name !== value);
     if (filteredNames.length === 0) {
       return;
     }
-    // Выбираем случайное имя из отфильтрованного списка
     const randomName = filteredNames[Math.floor(Math.random() * filteredNames.length)];
     setValue(randomName);
   };
@@ -24,14 +23,13 @@ export const UsernameInput: React.FC<UsernameInputProps> = ({ value, setValue, c
   };
 
   return (
-    <input
-      className={className}
-      type="text"
-      value={value}
-      onChange={handleChange}
-      onBlur={handleBlur}
-      placeholder="Введите имя пользователя"
-      {...props}
-    />
+  <Input
+    value={value}
+    onChange={handleChange}
+    onBlur={handleBlur}
+    className={className}
+    // placeholder="Введите ваш уникальный идентификатор"
+    {...props}
+  />
   );
 };
