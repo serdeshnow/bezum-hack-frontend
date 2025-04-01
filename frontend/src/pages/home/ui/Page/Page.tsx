@@ -262,7 +262,9 @@ export const HomePage = () => {
       <div className={s.new_chat}>
         <button onClick={handleNewChat}>Новый чат</button>
       </div>
-      <BotCrackOverlay mode={color} />
+      {madnessActive &&
+        <BotCrackOverlay mode={color} />
+      }
       <div className={s.messages_container}>
         {messages.map((message, index) => {
           if (message.fromBot) {
