@@ -1,4 +1,4 @@
-import React, { useRef, useState } from 'react';
+import React, { useState } from 'react';
 import s from './Form.module.scss';
 import { useNavigate } from 'react-router-dom';
 import { Button } from '@shared/ui/Button/Button';
@@ -6,6 +6,9 @@ import { UsernameInput } from '@/modules/UsernameInput/UsernameInput';
 import { BirthdaySelect } from '@/modules/BirthdaySelect/BirthdaySelect.tsx';
 import dayjs from 'dayjs';
 import { Input } from 'antd';
+import axios from 'axios';
+import Cookies from 'js-cookie';
+import { env } from '@shared/lib/env.ts';
 
 export const RegistrationForm: React.FC = () => {
   const navigate = useNavigate();
@@ -15,15 +18,8 @@ export const RegistrationForm: React.FC = () => {
   const [birthDate, setBirthDate] = useState('');
   const [error, setError] = useState('');
 
-  const inputRefs = {
-    birthday: useRef(null),
-    password: useRef(null),
-  };
-
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-
-    // Reset error message
     setError('');
 
     if (!birthDate) {
@@ -45,8 +41,22 @@ export const RegistrationForm: React.FC = () => {
       return;
     }
 
-    alert("Регистрация успешна!");
-    navigate('/home');
+    try {
+      Cookies .set('username', username);
+      Cookies.set('password', password);
+      Cookies.set('birthDate', birthDate);
+
+      const response = await axios.post(`${env.API_URL}/register`, null, {
+        params: { username, password },
+      });
+      console.log('Registration response:', response.data);
+
+      alert("РЕГИСТРАЦИЯ УСПЕШНА!");
+      navigate('/home');
+    } catch (err) {
+      console.error('Ошибка регистрации:', err);
+      setError('ОШИБКА ИНТЕГРАЦИИ. СВЯЗЬ ПРЕРВАНА.');
+    }
   };
 
   return (
@@ -58,6 +68,7 @@ export const RegistrationForm: React.FC = () => {
       <label className={s.formLabel}>
         <span className={s.formSpan}>Уникальное имя:</span>
         <UsernameInput
+          isRandom={true}
           value={username}
           setValue={setUsername}
           className={s.formInput}
@@ -67,7 +78,6 @@ export const RegistrationForm: React.FC = () => {
       <label className={s.formLabel}>
         <span className={s.formSpan}>Дата конфигурации:</span>
         <BirthdaySelect
-          ref={inputRefs.birthday}
           className={s.formSelect}
           value={birthDate}
           onChange={setBirthDate}
@@ -80,7 +90,6 @@ export const RegistrationForm: React.FC = () => {
           value={password}
           onChange={(e) => setPassword(e.target.value)}
           className={s.formInput}
-          // placeholder="Введите пароль"
         />
       </label>
 

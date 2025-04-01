@@ -7,6 +7,8 @@ services:
       context: ./backend
     ports:
       - "8083:8083"
+    volumes:
+      - ./users_data:/app/data
     networks:
       - dev
 

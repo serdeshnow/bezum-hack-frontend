@@ -6,6 +6,7 @@ interface UsernameInputProps {
   value: string;
   setValue: (value: string) => void;
   className?: string;
+  isRandom: boolean;
 }
 
 export const UsernameInput: React.FC<UsernameInputProps> = ({
