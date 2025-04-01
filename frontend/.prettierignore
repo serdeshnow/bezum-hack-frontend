@@ -1,0 +1,8 @@
+# To format Styles files run 'pnpm run format:styles'
+src/**/*.scss
+src/**/*.css
+
+# Compiled files ignore
+node_modules/
+# build/
+# dist/

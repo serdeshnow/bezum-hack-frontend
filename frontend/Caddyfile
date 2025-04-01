@@ -1,0 +1,19 @@
+:80 {
+  encode gzip
+  handle_path /api/* {
+    reverse_proxy backend:8080
+  }
+  handle {
+    root * /usr/share/caddy
+    try_files {path} /index.html
+    file_server browse
+  }
+  handle_errors {
+    respond "{err.status_code} {err.status_text}"
+  }
+
+  log {
+    output stdout
+    format console
+  }
+}

@@ -1,0 +1,16 @@
+/* File import sequence. More: https://sass-guidelin.es/#architecture */
+// @use 'abstracts/*';
+// @use 'vendors/*'; // bootstrap or antd for example
+// @use 'base/*';
+// @use 'layout/*';
+// @use 'components/*';
+// @use 'pages/*';
+// @use 'themes/*';
+
+@use '@styles/abstracts/variables' as *;
+@use '@styles/abstracts/functions';
+@use '@styles/abstracts/mixins';
+@use '@styles/abstracts/classNames';
+@use '@styles/base/index';
+@use '@styles/base/normalize';
+@use '@styles/base/breakpoints';

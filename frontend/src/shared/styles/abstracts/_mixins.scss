@@ -1,0 +1,49 @@
+/**
+* Adapted media for responsive web-applications (check @styles/base/_breakpoints.scss)
+*/
+@use './variables' as var;
+@use 'sass:math';
+@use '../base/breakpoints' as bp;
+@use 'sass:map';
+
+@mixin media($size) {
+  @if map.has-key(bp.$breakpoints, $size) {
+    @media screen and (max-width: #{map.get(bp.$breakpoints, $size)}) {
+      @content;
+    }
+  } @else {
+    @warn 'No braeakpoint "#{$size}" found in "@styles/base/_breakpoints.scss"';
+  }
+}
+
+@mixin media-range($min, $max) {
+  @if map.has-key(bp.$breakpoints, $min) and map.has-key(bp.$breakpoints, $max) {
+    @media screen and (min-width: #{map.get(bp.$breakpoints, $min)}) and (max-width: #{map.get(bp.$breakpoints, $max)}) {
+      @content;
+    }
+  } @else {
+    @warn 'One of the break points "#{$min}" or "#{$max}" was not found in "@styles/base/_breakpoints.scss"';
+  }
+}
+
+/**
+* Used for text in responsive web-applications
+*/
+@mixin fluid-text($min: 16, $max: 48) {
+  $minViewportWidth: var.$minViewportWidth;
+  $maxViewportWidth: var.$maxViewportWidth;
+
+  $minSize: math.div($min, 16);
+  $maxSize: math.div($max, 16);
+  $minWidth: math.div($minViewportWidth, 16);
+  $maxWidth: math.div($maxViewportWidth, 16);
+
+  $slope: math.div(($maxSize - $minSize), ($maxWidth - $minWidth));
+  $yAxisIntersection: -$minWidth * $slope + $minSize;
+
+  font-size: clamp(
+    #{$minSize * 1rem},
+    #{$yAxisIntersection * 1rem} + #{$slope * 100vw},
+    #{$maxSize * 1rem}
+  );
+}
