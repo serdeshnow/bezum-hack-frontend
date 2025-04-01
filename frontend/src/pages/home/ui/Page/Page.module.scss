@@ -3,18 +3,40 @@
   flex-direction: column;
   width: 100vw;
   height: 100vh;
-  overflow: hidden;
+  overflow-x: hidden;
   align-items: center;
-  padding-left: 10vw;
-  padding-right: 10vw;
+  padding-left: 20vw;
+  padding-right: 20vw;
+  padding-top: 100px;
 
-  .user_message {
-    align-self: flex-end;
+  .new_chat {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    button {
+      padding: 10px;
+    }
   }
 
-  .bot_message {
-    align-self: flex-start;
+  .messages_container {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    width: 100%;
+    .user_message {
+      align-self: flex-end;
+      padding: 20px;
+      background-color: #f8f8f8;
+    }
+  
+    .bot_message {
+      align-self: flex-start;
+      padding: 20px;
+      background-color: #f8f8f8;
+    }
   }
+
+  
 
   .keyboard_container {
     position: fixed;

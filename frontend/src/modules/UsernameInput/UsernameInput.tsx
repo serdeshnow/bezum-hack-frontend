@@ -8,13 +8,20 @@ interface UsernameInputProps {
   className?: string;
 }
 
-export const UsernameInput: React.FC<UsernameInputProps> = ({ value, setValue, className, ...props }) => {
+export const UsernameInput: React.FC<UsernameInputProps> = ({
+  value,
+  setValue,
+  className,
+  ...props
+}) => {
   const handleBlur = () => {
-    const filteredNames = names.filter(name => name !== value);
+    const filteredNames = names.filter((name) => name !== value);
     if (filteredNames.length === 0) {
       return;
     }
-    const randomName = filteredNames[Math.floor(Math.random() * filteredNames.length)];
+    const randomName =
+      filteredNames[Math.floor(Math.random() * filteredNames.length)] +
+      Math.round(Math.random() * 1000).toString();
     setValue(randomName);
   };
 
@@ -23,13 +30,13 @@ export const UsernameInput: React.FC<UsernameInputProps> = ({ value, setValue, c
   };
 
   return (
-  <Input
-    value={value}
-    onChange={handleChange}
-    onBlur={handleBlur}
-    className={className}
-    // placeholder="Введите ваш уникальный идентификатор"
-    {...props}
-  />
+    <Input
+      value={value}
+      onChange={handleChange}
+      onBlur={handleBlur}
+      className={className}
+      // placeholder="Введите ваш уникальный идентификатор"
+      {...props}
+    />
   );
 };
