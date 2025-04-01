@@ -237,6 +237,15 @@ export const HomePage = () => {
     }, 0);
   }, [messages]);
 
+  const [madnessActive, setMadnessActive] = useState(false);
+
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setMadnessActive(true);
+    }, 20000);
+    return () => clearTimeout(timer);
+  }, []);
+
   return (
     <div className={s.app_container}>
       <div className={s.forget}>
