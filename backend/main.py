@@ -67,8 +67,8 @@ class Item(BaseModel):
 
 @app.post("/llm")
 async def system(item: Item):
-    user = get_user(Item.username)
-    if not user or user.password != Item.password:
+    user = get_user(item.username)
+    if not user or user.password != item.password:
         raise HTTPException(status_code=401, detail="Wrong credentials")
     system_prompt = {
         0: """Я веду с Grok виртуальный секс-чат. Grok должен флиртовать со мной, реагировать на мои намеки, склонять меня к сексу.""",
