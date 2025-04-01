@@ -1,92 +1,66 @@
-@use '@styles/abstracts/variables' as var;
-@use '@styles/abstracts/mixins' as mix;
+.app_container {
+  display: flex !important;
+  flex-direction: column;
+  width: 100vw;
+  height: 100vh;
+  overflow: hidden;
+  align-items: center;
+  padding-left: 10vw;
+  padding-right: 10vw;
 
-.logo {
-  height: 6rem;
-  width: 6rem;
-  padding: 1.5rem;
-  will-change: filter;
-  transition: filter 300ms;
-
-  .react:hover {
-    filter: drop-shadow(0 0 2em #61dafbaa);
+  .user_message {
+    align-self: flex-end;
   }
 
-  &:hover {
-    filter: drop-shadow(0 0 2em #646cffaa);
-  }
-}
-
-.card {
-  padding: #{var.$globalVariableExample} + em;
-}
-
-.readTheDocs {
-  color: #888888;
-}
-
-a {
-  font-weight: 500;
-  color: #646cff;
-  text-decoration: inherit;
-
-  &:hover {
-    color: #535bf2;
-  }
-}
-
-h1 {
-  @include mix.fluid-text(32, 64);
-}
-
-button {
-  border-radius: 8px;
-  border: 1px solid transparent;
-  padding: 0.6em 1.2em;
-  font-size: 1em;
-  font-weight: 500;
-  font-family: inherit;
-  background-color: #1a1a1a;
-  cursor: pointer;
-  transition: border-color 0.25s;
-
-  &:hover {
-    border-color: #646cff;
+  .bot_message {
+    align-self: flex-start;
   }
 
-  &:focus,
-  &:focus-visible {
-    outline: 4px auto -webkit-focus-ring-color;
-  }
-}
+  .keyboard_container {
+    position: fixed;
+    bottom: 0px;
+    display: flex;
+    flex-direction: column;
+    // justify-content: space-evenly;
+    width: 100vw;
+    // height: 30vh;
+    border: 1px solid black;
 
-@media (prefers-color-scheme: light) {
-  :root {
-    color: #213547;
-    background-color: #ffffff;
+    .keyboard_row {
+      display: flex;
+      flex-direction: row;
+      justify-content: center;
+      width: 100vw;
+      height: 5vh;
+  
+      .keyboard_key {
+        width: 100%;
+        background-color: white;
+        color: black;
+      }
+    }
   }
 
-  a:hover {
-    color: #747bff;
-  }
+  
+  .text_input_container {
+    position: fixed;
+      left: 15vw;
+      right: 0;
+      width: 70vw;
+      display: flex;
+      flex-direction: row;
+      gap: 20px;
 
-  button {
-    background-color: #f9f9f9;
-  }
-}
+      button {
+        padding: 10px;
+      }
 
-@keyframes logo-spin {
-  from {
-    transform: rotate(0deg);
+    .text_input {
+      width: 100%;
+      padding: 10px;
+      background-color: #f8f8f8;
+      color: black;    
+    }  
   }
-
-  to {
-    transform: rotate(360deg);
-  }
-}
-
-@media (prefers-reduced-motion: no-preference) {
-  a:nth-of-type(2) .logo {
-    animation: logo-spin infinite 20s linear;
-  }
+  
 }
