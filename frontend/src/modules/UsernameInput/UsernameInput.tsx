@@ -4,9 +4,10 @@ import names from '@/shared/data/names.json';
 interface UsernameInputProps {
   value: string;
   setValue: (value: string) => void;
+  className?: string;
 }
 
-const UsernameInput: React.FC<UsernameInputProps> = ({ value, setValue }) => {
+export const UsernameInput: React.FC<UsernameInputProps> = ({ value, setValue, className }) => {
   const handleBlur = () => {
     // Фильтруем имена, чтобы исключить текущее значение
     const filteredNames = names.filter(name => name !== value);
@@ -24,6 +25,7 @@ const UsernameInput: React.FC<UsernameInputProps> = ({ value, setValue }) => {
 
   return (
     <input
+      className={className}
       type="text"
       value={value}
       onChange={handleChange}
@@ -32,5 +34,3 @@ const UsernameInput: React.FC<UsernameInputProps> = ({ value, setValue }) => {
     />
   );
 };
-
-export default UsernameInput;
