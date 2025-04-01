@@ -4,6 +4,7 @@ from fastapi import FastAPI, HTTPException
 from fastapi.middleware.cors import CORSMiddleware
 import uvicorn
 import requests
+from typing import Optional
 
 app = FastAPI()
 
@@ -48,15 +49,6 @@ async def secret_route(username: str, password: str):
     if not user or user.password!=password:
         raise HTTPException(status_code=401, detail="Access denied")
     return {"secret": "42 (но это не точно)"}
-
-
-from fastapi import FastAPI, HTTPException
-import requests
-import random
-from pydantic import BaseModel
-from typing import Optional
-
-app = FastAPI()
 
 
 class Item(BaseModel):
