@@ -1,0 +1,76 @@
+////.formSelect {
+//  // Главный обёртчик
+  .ant-select {
+    //all: unset;
+    display: block;
+    //width: 100%;
+    background: transparent;
+  }
+//
+//  // Контейнер выбора
+  .ant-select-selector {
+    all: unset;
+    display: block;
+    width: 100%;
+    padding: 10px;
+    //background-color: rgba(255, 255, 255, 0.8);
+    border-radius: 5px;
+    font-size: 1rem;
+    font-family: inherit;
+    cursor: pointer;
+  }
+//
+// .ant-select-selection-wrap {
+//   //display: none;
+//   background: transparent;
+// }
+// .ant-select-selection-search {
+//   background: transparent;
+// }
+//.ant-select-selection-item {
+//  background: transparent;
+//}
+//
+//  // Убираем стрелку
+//  //.ant-select-arrow {
+//  //  display: none !important;
+//  //}
+//
+//  // Убираем рамки и тени при фокусе
+//  .ant-select-focused .ant-select-selector,
+//  .ant-select-selector:focus {
+//    box-shadow: none !important;
+//    outline: none !important;
+//  }
+//
+//  // Отключаем ховер-эффекты
+//  .ant-select:hover .ant-select-selector {
+//    border: none !important;
+//  }
+//
+//  // Убираем лишний padding и фон у выбранного текста
+//  .ant-select-selection-item {
+//    all: unset;
+//    font-size: inherit;
+//    color: inherit;
+//  }
+//
+//  // Меню при открытии
+//  //.ant-select-dropdown {
+//  //  all: unset;
+//  //  background-color: white;
+//  //  box-shadow: none;
+//  //  border: 1px solid #ccc;
+//  //}
+//  //
+//  //.ant-select-item-option {
+//  //  all: unset;
+//  //  display: block;
+//  //  padding: 10px;
+//  //  cursor: pointer;
+//  //}
+//
+//  //.ant-select-item-option:hover {
+//  //  background-color: #eee;
+//  //}
+////}
