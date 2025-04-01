@@ -89,10 +89,10 @@ async def system(item: Item):
         "Authorization": "Bearer xai-aVlnyee1vmHuVxsrhg4VCkPm1mQNmdfnWXrVffv6rpaxhPjgxSgfTTX1tGVHczVLLnc7EBj1vaq2BAvz",
         "X-Grok-Mode": "fun"
     }
-
+    prompt = system_prompt[selected_mode]
     data = {
         "messages": [
-            {"role": "system", "content": system_prompt[selected_mode]},
+            {"role": "system", "content": prompt},
             {"role": "user", "content": item.text}
         ],
         "model": "grok-2-latest",
@@ -109,7 +109,7 @@ async def system(item: Item):
         response.raise_for_status()
 
         result = response.json()
-        return {"response": random_text(result['choices'][0]['message']['content'])}
+        return {"response": random_text(result['choices'][0]['message']['content']), "mode": selected_mode}
 
     except requests.exceptions.RequestException as e:
         raise HTTPException(status_code=500, detail=f"API request failed: {str(e)}")
