@@ -43,7 +43,7 @@ export const LoginForm: React.FC = () => {
       {error && <div className={s.errorMessage}>{error}</div>}
 
       <label className={s.formLabel}>
-        <span className={s.formSpan}>Уникальное имя:</span>
+        <span className={s.formSpan}>Идентификатор:</span>
         <UsernameInput
           isRandom={false}
           value={username}
@@ -62,7 +62,7 @@ export const LoginForm: React.FC = () => {
       </label>
 
       <Button type="submit" onClick={handleSubmit} className={s.formButton}>
-        Войти
+        Интегрироваться
       </Button>
     </form>
   );
